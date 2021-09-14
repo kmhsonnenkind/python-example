@@ -75,7 +75,7 @@ jobs:
 
       - name: build packages
         run: |
-          python -m build --no-isolation --wheel
+          python -m build --no-isolation
           python -m twine check dist/*
 
       - name: build documentation
@@ -85,8 +85,8 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ matrix.runs-on == 'ubuntu-latest' }}
         with:
-          name: wheels
-          path: dist/*.whl
+          name: python-distributions
+          path: dist/*
 
       - name: upload documentation
         uses: actions/upload-artifact@v2
@@ -94,3 +94,11 @@ jobs:
         with:
           name: documentation
           path: build/sphinx/**
+
+      - name: publish packages (TestPyPI)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
