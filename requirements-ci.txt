@@ -1,0 +1,11 @@
+# Base requirements for usage of library and build system
+-r requirements-dev.txt
+
+# Requirements for CI system
+twine
+build
+wheel
+coverage
+mypy
+flake8
+pylint

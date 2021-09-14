@@ -1,0 +1,7 @@
+# Base requirements for usage of library
+-r requirements.txt
+
+# Requirements for build system
+sphinx
+pytest
+pytest-runner
