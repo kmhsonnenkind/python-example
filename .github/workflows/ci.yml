@@ -73,10 +73,24 @@ jobs:
       - name: run static type checks
         run: python -m mypy kmhsonnenkind
 
-      - name: build package
+      - name: build packages
         run: |
-          python -m build --no-isolation
+          python -m build --no-isolation --wheel
           python -m twine check dist/*
 
       - name: build documentation
         run: python setup.py build_sphinx
+
+      - name: upload packages
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
+        with:
+          name: wheels
+          path: dist/*.whl
+
+      - name: upload documentation
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
+        with:
+          name: documentation
+          path: build/sphinx/**
