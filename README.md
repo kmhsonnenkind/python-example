@@ -53,4 +53,4 @@ kmhsonnenkind Martin --email="martin@example.com"
 
 ## Further Documentation
 
-For further documentation please check out [Read the Docs](https://readthedocs.org/projects/kmhsonnenkind/).
+For further documentation please check out [Read the Docs](https://kmhsonnenkind-python-example.readthedocs.io/).

@@ -8,7 +8,7 @@ Python Example Project
 
 This project offers a dummy Python library :mod:`kmhsonnenkind` that is used to in the
 `Python Example Project <https://github.com/kmhsonnenkind/python-example>`__ to show how to set up a Python project on `github <https://github.com>`__ and
-perform common tasks like deploying to `PyPI <https://pypi.org>`__ or `Read the Docs <https://readthedocs.org>`__.
+perform common CI / CD tasks like deploying to `PyPI <https://pypi.org>`__ or `Read the Docs <https://readthedocs.org>`__.
 
 
 ************

@@ -52,7 +52,7 @@ setuptools.setup(
     url='https://github.com/kmhsonnenkind/python-example',
     license='MIT',
     project_urls={
-        'Documentation': 'https://readthedocs.org/projects/kmhsonnenkind',
+        'Documentation': 'https://kmhsonnenkind-python-example.readthedocs.io/',
         'Version Control': 'https://github.com/kmhsonnenkind/python-example',
         'Issue Tracker': 'https://github.com/kmhsonnenkind/python-example/issues'
     },
