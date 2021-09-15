@@ -43,7 +43,8 @@ with open('README.md', 'r') as f:
 # Python installable package
 setuptools.setup(
     name='kmhsonnenkind',
-    version='0.0.1',
+    # XXX: Project version currently maintained here, __init__.py and docs/conf.py
+    version='0.0.2',
     description='Example Python project',
     long_description=readme,
     long_description_content_type='text/markdown',

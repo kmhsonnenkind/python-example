@@ -26,6 +26,10 @@ Example library used in github project to show common tasks.
 __all__ = ['greet']
 
 
+# XXX: Project version currently maintained here, setup.py and docs/conf.py
+__version__ = '0.0.2'
+
+
 def greet(name: str) -> str:
     '''
     Creates greeting for given `name`.
