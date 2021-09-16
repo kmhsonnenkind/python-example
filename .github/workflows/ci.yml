@@ -28,7 +28,7 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  test:
     name: Python ${{ matrix.python-version }} ${{ matrix.runs-on }} (${{ matrix.architecture }})
     runs-on: ${{ matrix.runs-on }}
     strategy:
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: set up python
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
@@ -73,6 +73,40 @@ jobs:
       - name: Run static type checks
         run: python -m mypy kmhsonnenkind
 
+  build:
+    name: Build
+    needs: test
+    if: success()
+    runs-on: ubuntu-latest
+    env:
+      BASE_VERSION: 0.0.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x64
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          python -m pip install -r requirements-ci.txt
+
+      - name: Calculate version (development)
+        if: github.event_name != 'push' || github.ref != 'refs/heads/main'
+        run: echo "VERSION=${{ env.BASE_VERSION }}-dev+$(date +%Y%m%d%H%M%S)">> $GITHUB_ENV
+
+      - name: Calculate version (release)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo "VERSION=${{ env.BASE_VERSION }}" >> $GITHUB_ENV
+
+      - name: Patch version information
+        run: ./.github/scripts/patch-version.sh ${{ env.VERSION }}
+
       - name: Build packages
         run: |
           python -m build --no-isolation
@@ -83,21 +117,19 @@ jobs:
 
       - name: Upload packages
         uses: actions/upload-artifact@v2
-        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
         with:
           name: python-distributions
           path: dist/*
 
       - name: Upload documentation
         uses: actions/upload-artifact@v2
-        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
         with:
           name: documentation
           path: build/sphinx/**
 
   deploy:
     name: Deploy
-    needs: ci
+    needs: build
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:

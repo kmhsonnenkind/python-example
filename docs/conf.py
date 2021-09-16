@@ -11,8 +11,9 @@ copyright = '2021, Martin Kloesch'
 author = 'Martin Kloesch <martin.kloesch@gmail.com>'
 
 # The full version, including alpha/beta/rc tags
-# XXX: Project version currently maintained here, setup.py and __init__.py
-release = '0.0.2'
+# XXX: Patched by CI using util/patch-version.sh script
+#      Do **NOT** change manually
+release = 'development'
 
 
 # -- General configuration ---------------------------------------------------

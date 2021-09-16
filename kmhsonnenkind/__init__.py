@@ -26,8 +26,9 @@ Example library used in github project to show common tasks.
 __all__ = ['greet']
 
 
-# XXX: Project version currently maintained here, setup.py and docs/conf.py
-__version__ = '0.0.2'
+# XXX: Patched by CI using util/patch-version.sh script
+#      Do **NOT** change manually
+__version__ = 'development'
 
 
 def greet(name: str) -> str:
