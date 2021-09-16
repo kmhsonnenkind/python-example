@@ -39,6 +39,8 @@ def main():
     parser = argparse.ArgumentParser(description='Greet person')
     parser.add_argument('name', metavar='<Name>', type=str,
                         help='Person to be greeted')
+    parser.add_argument('-v', '--version', action='version',
+                        version=f'{kmhsonnenkind.__version__}')
     args = parser.parse_args()
 
     # Call library function

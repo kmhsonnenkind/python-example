@@ -43,8 +43,9 @@ with open('README.md', 'r') as f:
 # Python installable package
 setuptools.setup(
     name='kmhsonnenkind',
-    # XXX: Project version currently maintained here, __init__.py and docs/conf.py
-    version='0.0.2',
+    # XXX: Patched by CI using util/patch-version.sh script
+    #      Do **NOT** change manually
+    version='development',
     description='Example Python project',
     long_description=readme,
     long_description_content_type='text/markdown',
