@@ -1,6 +1,0 @@
-[run]
-omit = 
-    setup.py
-    */test_*.py
-    */dist-packages/*
-    */site-packages/*

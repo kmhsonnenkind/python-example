@@ -5,7 +5,6 @@
 twine
 build
 wheel
-coverage
-mypy
-flake8
-pylint
+tox
+tox-gh-actions
+

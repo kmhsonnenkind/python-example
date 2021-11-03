@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: ["3.6"]
+        python-version: ["3.6", "3.7", "3.8"]
         architecture: ["x64"]
 
     steps:
@@ -54,24 +54,12 @@ jobs:
           python -m pip install --upgrade setuptools
           python -m pip install -r requirements-ci.txt
 
-      - name: Run tests
-        run: python -m pytest
-
-      - name: Measure code coverage
-        if: ${{ matrix.runs-on == 'ubuntu-latest' }}
+      - name: Run tests and checks
         run: |
-          python -m coverage run -m pytest
-          python -m coverage xml
+          python -m tox
           bash <(curl -s https://codecov.io/bash) -f coverage.xml
-
-      - name: Check code-style
-        run: python -m flake8 kmhsonnenkind
-
-      - name: Run static code analysis
-        run: python -m pylint kmhsonnenkind
-
-      - name: Run static type checks
-        run: python -m mypy kmhsonnenkind
+        env:
+          PLATFORM: ${{ matrix.runs-on }}
 
   build:
     name: Build
@@ -79,7 +67,7 @@ jobs:
     if: success()
     runs-on: ubuntu-latest
     env:
-      BASE_VERSION: 0.0.3
+      BASE_VERSION: 0.0.4
     steps:
       - name: Checkout
         uses: actions/checkout@v2
