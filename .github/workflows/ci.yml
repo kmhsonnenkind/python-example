@@ -55,11 +55,14 @@ jobs:
           python -m pip install -r requirements-ci.txt
 
       - name: Run tests and checks
-        run: |
-          python -m tox
-          bash <(curl -s https://codecov.io/bash) -f coverage.xml
+        run: python -m tox
         env:
           PLATFORM: ${{ matrix.runs-on }}
+
+      - name: Upload coverage results
+        if: matrix.runs-on == 'ubuntu-latest' && matrix.python-version == '3.8'
+        run: bash <(curl -s https://codecov.io/bash) -f coverage.xml
+
 
   build:
     name: Build
